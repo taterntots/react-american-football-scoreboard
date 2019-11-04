@@ -26,7 +26,6 @@ function App() {
     setIsActive(false);
   }
 
-  //first digit
   useEffect(() => {
     let interval = null;
     if(isActive) {
@@ -53,54 +52,6 @@ function App() {
     }
     return () => clearInterval(interval);
   }, [isActive, seconds]);
-
-  // //tenths digit
-  // useEffect(() => {
-  //   let interval = null;
-  //   if(isActive) {
-  //     interval = setInterval(() => {
-  //       setTenSeconds(tenSeconds => tenSeconds + 1);
-  //     }, 1000);
-  //     if(tenSeconds > 9) {
-  //       setTenSeconds(0);
-  //     }
-  //   }else if (!isActive && tenSeconds !== 0) {
-  //     clearInterval(interval);
-  //   }
-  //   return () => clearInterval(interval);
-  // }, [isActive, tenSeconds]);
-
-  // //hundreths digit
-  // useEffect(() => {
-  //   let interval = null;
-  //   if(isActive) {
-  //     interval = setInterval(() => {
-  //       setMinutes(minutes => minutes + 1);
-  //     }, 1000);
-  //     if(minutes > 9) {
-  //       setMinutes(0);
-  //     }
-  //   }else if (!isActive && minutes !== 0) {
-  //     clearInterval(interval);
-  //   }
-  //   return () => clearInterval(interval);
-  // }, [isActive, minutes]);
-
-  // //thousandths digit
-  // useEffect(() => {
-  //   let interval = null;
-  //   if(isActive) {
-  //     interval = setInterval(() => {
-  //       setTenMinutes(tenMinutes => tenMinutes + 1);
-  //     }, 1000);
-  //     if(tenMinutes > 9) {
-  //       setTenMinutes(0);
-  //     }
-  //   }else if (!isActive && tenMinutes !== 0) {
-  //     clearInterval(interval);
-  //   }
-  //   return () => clearInterval(interval);
-  // }, [isActive, tenMinutes]);
 
   return (
     <div className="container">
