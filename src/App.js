@@ -9,6 +9,9 @@ function App() {
   const [awayScore, setAwayScore] = useState(24);
   const [quarter, setQuarter] = useState(1);
   const [seconds, setSeconds] = useState(0);
+  const [tenSeconds, setTenSeconds] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [tenMinutes, setTenMinutes] = useState(0);
   const [isActive, setIsActive] = useState(false);
 
   function toggle() {
@@ -17,21 +20,75 @@ function App() {
 
   function reset() {
     setSeconds(0);
+    setTenSeconds(0);
+    setMinutes(0);
+    setTenMinutes(0);
     setIsActive(false);
   }
 
+  //first digit
   useEffect(() => {
-    document.title = 'Time: ' + seconds;
     let interval = null;
     if(isActive) {
       interval = setInterval(() => {
         setSeconds(seconds => seconds + 1);
       }, 1000);
+      if(seconds > 9) {
+        setSeconds(0);
+      }
     }else if (!isActive && seconds !== 0) {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
   }, [isActive, seconds]);
+
+  //tenths digit
+  useEffect(() => {
+    let interval = null;
+    if(isActive) {
+      interval = setInterval(() => {
+        setTenSeconds(tenSeconds => tenSeconds + 1);
+      }, 10000);
+      if(tenSeconds > 5) {
+        setTenSeconds(0);
+      }
+    }else if (!isActive && tenSeconds !== 0) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [isActive, tenSeconds]);
+
+  //hundreths digit
+  useEffect(() => {
+    let interval = null;
+    if(isActive) {
+      interval = setInterval(() => {
+        setMinutes(minutes => minutes + 1);
+      }, 60000);
+      if(minutes > 9) {
+        setMinutes(0);
+      }
+    }else if (!isActive && minutes !== 0) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [isActive, minutes]);
+
+  //thousandths digit
+  useEffect(() => {
+    let interval = null;
+    if(isActive) {
+      interval = setInterval(() => {
+        setTenMinutes(tenMinutes => tenMinutes + 1);
+      }, 1000000);
+      if(tenMinutes > 5) {
+        setTenMinutes(0);
+      }
+    }else if (!isActive && tenMinutes !== 0) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [isActive, tenMinutes]);
 
   return (
     <div className="container">
@@ -44,7 +101,7 @@ function App() {
 
             <div className="home__score">{homeScore}</div>
           </div>
-          <div className="timer">{seconds}</div>
+          <div className="timer">{tenMinutes}{minutes}:{tenSeconds}{seconds}</div>
           <div className="away">
             <h2 className="away__name">Tigers</h2>
             <div className="away__score">{awayScore}</div>
